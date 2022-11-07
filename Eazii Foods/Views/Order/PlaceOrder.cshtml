@@ -1,0 +1,71 @@
+﻿@model Eazii_Foods.ViewModel.PlaceOrderViewModel
+@{
+    ViewData["Title"] = "PlaceOrder";
+}
+
+
+<!-- ======= Place Order Section ======= -->
+
+
+<section id="book-a-table" class="book-a-table">
+
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+
+            <h2>Reservation</h2>
+            <p>Place Order</p>
+
+        </div>
+
+        <form  asp-controller="Order" asp-action="PlaceOrder" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 form-group">
+                    <input type="text" asp-for="User" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                    <input type="email" class="form-control" asp-for="Email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                    <input type="text" class="form-control" asp-for="PhoneNumber" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="date" asp-for="OrderDate" class="form-control" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                    <div class="validate"></div>
+                </div>
+
+                @Html.HiddenFor(m => m.FoodId)
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <input type="tel" asp-for="FoodId" class="form-control" placeholder="Food" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+@*                    <select asp-items="@(new SelectList(@ViewBag.Food,"Id", "Name"))" class="form-control" asp-for="FoodId" type="text">select Food</select>
+*@                    <div class="validate"></div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 form-group mt-3">
+                    <select asp-items="@(new SelectList(@ViewBag.State,"Id", "Name"))" class="form-control" asp-for="StateId" type="text">select state</select>
+                    <div class="validate"></div>
+                </div>
+
+            </div>
+            <div class="form-group mt-3">
+                <textarea class="form-control" asp-for="Comment" rows="5" placeholder="Message"></textarea>
+                <div class="validate"></div>
+            </div>
+
+            <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
+            </div>
+
+            <div class="text-center"><button type="submit">Place Order</button></div>
+
+        </form>
+
+    </div>
+
+</section><!-- End Place Order Section -->

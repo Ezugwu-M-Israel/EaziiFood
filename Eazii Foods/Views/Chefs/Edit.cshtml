@@ -1,0 +1,102 @@
+﻿@model Eazii_Foods.Models.Chefs
+
+@{
+    ViewData["Title"] = "Edit";
+     //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data">
+
+        <!--  EDIT CHEFS  -->
+
+    <input asp-for="Id" hidden value="@Model.Id" />
+
+    <div class="form-bg ">
+
+        <div class="container mb-3 mt-5 p-5 ">
+
+            <div class="row ">
+
+                <div class="offset-3 col-md-6 ">
+
+                    <div class="form-horizontal  bg-dark shadow-lg ">
+
+
+                        <span class="heading text-white">EDIT CHEFS</span>
+
+                        <div class="form-group">
+
+                            <input  type="text" class="form-control" asp-for="NameOfChefs" value="@Model.NameOfChefs" placeholder="Name Of Chefs">
+
+                        </div>
+
+                        <div class="form-group help">
+
+                            <input type="text" class="form-control" asp-for="TypeOfFood" required value="@Model.TypeOfFood" placeholder="Type Of Food">
+                        </div>
+
+                        <div class="form-group help">
+
+                            <input type="text" class="form-control" asp-for="Amount" required value="@Model.Amount" placeholder="Amount">
+                        </div>
+
+                        <div class="form-group help">
+
+                            <input type="file" asp-for="FoodImageUrl" class="form-control" required value="@Model.FoodImageUrl">
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-8 offset-4 row">
+
+                                <div class="col">
+                                    <input asp-controller="Chefs" asp-action="Edit" type="submit" class="btn-block rounded-pill w-100" value="Update" />
+                                </div>
+
+                                <div class="col">
+                                    <a asp-action="Index"  class=" btn-block  rounded-pill text-center offset-3 px-5 py-2">
+                                          Back
+                                    </a>
+                                
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+ </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

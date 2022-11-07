@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Eazii_Foods.ViewModel.FoodViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+  <div class="container-fluid">
+
+    <div class="col-6 offset-3">
+        <h2 class="text-dark  btn-block text-center py-2" style="margin-top: 150px;"> This Is The List Of Food Will Have </h2>
+    </div>
+
+      <div class="row">
+
+              @if(Model != null && Model.Count() > 0)
+              {
+                    @foreach(var food in Model)
+                    {
+                        <div class="card col-3" style="margin-top:130px; background: #cda45e;">
+                            <img src="@food.Image" alt="John" style="width:100%" />
+                            <h1>@food.Name</h1>
+                            <p>@food.Price</p>
+                            <div class="social" style="margin: 24px 0;">
+                                <a href="#"><i class="bi bi-twitter"></i></a>
+                                <a href="#"><i class="bi bi-facebook"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                               <p class="bg-dark">
+                                   <a asp-controller="Order" asp-action="PlaceOrder" asp-route-foodId="@food.Id" class="text-white">
+                                       BUY
+                                   </a>
+                               </p>
+                        </div>
+                    }
+                    
+              }else{
+
+                  <div class="text-center">
+
+                      <h1> No record find </h1>
+
+                  </div>
+              }
+      </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+<!-- Button  -->
+<div class="col-6 text-center create offset-2 my-2">
+
+    <a href="#" class="btn add-btn btn-block  rounded-pill text-center offset-3 px-5 py-2" data-bs-toggle="modal" data-bs-target="#create_Food">
+        <i class="fas fa-plus"></i>
+        Create Food
+    </a>
+
+</div><!-- End Page Title -->
+
+
+
+<div id="create_Food" class="modal custom-modal fade bg-dark" role="dialog">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+            @*
+            <div class="modal-header text-center">
+            <h4 class="modal-title offset-4 texe-white"> Create Food </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="close"></button>
+            </div>*@
+
+            <div class="modal-body" style=" background: #cda45e; ">
+
+                <div class="form-group">
+                    <label>FoodName</label>
+                    <input class="form-control" type="text" id="name" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <input class="form-control" type="text" id="price" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>FoodImage</label>
+                    <input class="form-control" type="file" id="image" />
+
+                </div>
+
+                <div class="submit-section pt-3 text-center">
+
+                    <button class=" btn submit-btn bg-dark  text-white rounded-pill text-center px-5 py-2" role="button" onclick="addFood()">submit</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

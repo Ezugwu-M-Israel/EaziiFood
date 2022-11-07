@@ -1,0 +1,55 @@
+﻿@model Eazii_Foods.ViewModel.LoginViewModel
+
+
+@{
+    ViewData["Title"] = "Login";
+    //Layout = "~/Views/Shared/_MyChefsLayout.cshtml";
+
+}
+
+
+
+<form asp-controller="Account" asp-action="Login" method="post">
+
+           <div class="form-bg">
+
+                <div class="container  mb-3 mt-5  p-5">
+
+                    <div class="row">
+
+                        <div class=" offset-3 col-md-6">
+
+                            <div class="form-horizontal  bg-dark shadow-lg">
+
+                                <span class="heading text-white">LOGIN</span>
+
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" name="username" value="" placeholder="Email">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+
+                                <div class="form-group help">
+                                    <input id="password" type="password" class="form-control" name="password" required value="" placeholder="Password">
+                                    <i class="bi bi-lock-fill"></i>
+                                </div>
+
+                                <div class=" d-flex offset-1 mb-2"> <a><i>Forget Password</i></a></div>
+
+                                <div class="form-group">
+                                    <div class="main-checkbox">
+                                        <input type="checkbox" value="None" id="checkbox1" name="check">
+                                        <label for="checkbox1"></label>
+                                    </div>
+
+                                    <span class="text">Remember me</span>
+                                    <button role="button" class="btn btn-default" asp-controller="Account" asp-action="Login">login</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+          </div>
+</form>

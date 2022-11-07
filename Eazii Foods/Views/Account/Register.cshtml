@@ -1,0 +1,180 @@
+﻿@model Eazii_Foods.ViewModel.ApplicationUserViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+<!-- ======= Register Section ======= -->
+
+
+
+  <div class="container-fluid mb-3 mt-5  p-5 ">
+
+                    <!-- Account Form -->
+
+      <form asp-controller="Account" asp-action="Register" method="post">
+
+           <div class="lay bg-dark  col-7 offset-3 pb-2 shadow-lg " style="border-radius:50px; margin-bottom:-18px; ">
+                <div class="mb-3  text-dark rounded-sm p-3"> <h2 class="text-center text-uppercase heading_line ">Registeration Form</h2></div>
+                <div class="row justify-content-center">
+                    <div class="form-group col-4">
+                        <label for="name" class="form-label text-md-right">First Name</label>
+                        <div class="">
+                        <input id="firstName" type="tel" class="form-control rounded-3 required" name="firstName" value="" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-4 ">
+                        <label for="name" class="form-label text-md-right required">Middle Name</label>
+                        <div class="">
+                        <input id="MiddleName" type="tel" class="form-control rounded-3 required" name="MiddleName" value="" placeholder="">
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Second row -->
+
+              <div class="row justify-content-center">
+
+                    <div class="form-group col-4 ">
+                        <label for="name" class="form-label text-md-right required">Last Name</label>
+                        <div class="">
+                        <input id="LastName" type="tel" class="form-control rounded-3 required" name="LastName" value="" placeholder="">
+                        </div>
+                    </div>
+
+                <div class="form-group col-4 ">
+                    <label for="name" class="form-label text-md-right required">E-mail Address</label>
+                    <div class="">
+                        <input  type="tel" class="form-control rounded-3 required" name="email" value="" placeholder="">
+                    </div>
+                </div>
+                   
+
+              </div>
+
+
+                <!--third row -->
+                <div class="row mb-3 justify-content-center">
+                    <div class="form-group col-4">
+                        <label for="name" class="form-label text-md-right">Address</label>
+                        <div class="">
+                            <input id="Address" type="text" class="form-control  rounded-3" name="Address" required value="">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-4">
+                        <label for="name" class="form-label text-md-right">Gender</label>
+                        <div class="">
+                            <input id="gender" type="tel" class="form-control rounded-3 required" name="gender" value="" placeholder="">
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row justify-content-center mb-2">
+                    <div class="form-group col-4">
+                        <label for="password" class="form-label text-md-right">Password</label>
+                        <div class="">
+                            <input id="password" type="password" class="form-control rounded-3" name="password" required value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="password-confirm" class="form-label text-md-right">Confirm Password</label>
+                        <div class="">
+                        <input id="confirmPassword" type="password" class="form-control rounded-3" required value="" name="confirmPassword">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+
+                    <div class="form-group col-4 ">
+                        <label for="name" class="form-label text-md-right required">DateOfBirth</label>
+                        <div class="">
+                        <input id="DateOfBirth" type="date" class="form-control rounded-3 required" name="DateOfBirth" value="" placeholder="">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-4">
+                        <label for="phone-input" class="form-label text-md-right">Phone Number</label>
+                        <div class="">
+                        <input id="phone" type="text" class="form-control rounded-3 required" name="phoneNumber" value="" placeholder="+234-0916-7528-167">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            <!-- fifth row -->
+
+                <div class="row justify-content-center">
+
+                    <div class="form-group col-4 ">
+                        <label for="name" class="form-label text-md-right required">Branch office</label>
+                        <div class="">
+                        <input id="Branchoffice" type="tel" class="form-control rounded-3 required" name="Branchoffice" value="" placeholder="" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-4">
+                        <label for="name" class="form-label text-md-right">State</label>
+                        <div class="">
+                            <select asp-items="@(new SelectList(@ViewBag.State,"Id", "Name"))" class="form-control" asp-for="StateId" type="text">select state</select>
+                          </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row justify-content-center">
+
+                    <div class="form-group col-4 ">
+                        <label for="name" class="form-label text-md-right required">Department</label>
+                        <div class="">
+                        <input id="Department" type="tel" class="form-control rounded-3 required" name="Department" value="" placeholder="" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="name" class="form-label text-md-right">Tell As About Your Seif</label>
+                        <div class="">
+                            <input id="Message" type="tel" class="form-control rounded-3 required" name="message" value="" placeholder="">
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row justify-content-center mx-5 ">
+                    <div class="form-group col-12 text-center p-3">
+                        <button role="button" class=" btn-block rounded-pill" style="width:80%">Register</button>
+                    </div>
+                </div>
+                <div class="row mx-5">
+                    <div class="form-group col-12 ">
+                        <p class="small mb-0">Already have an account?<a asp-controller="Account" asp-action="Login">Login</a></p>
+                    </div>
+                </div>
+
+           </div>
+
+      </form>
+
+    <!-- /Account Form -->
+
+
+  </div>
