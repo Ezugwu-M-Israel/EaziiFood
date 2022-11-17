@@ -1,10 +1,82 @@
 ﻿@model IEnumerable<Eazii_Foods.ViewModel.ChefsViewModel>
 
+
+<!-- ======= Chefs Section ======= -->
+<section id="chefs" class="chefs" style="margin-top: 150px;">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Chefs</h2>
+            <p>Our Proffesional Chefs</p>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="member" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="~/restaurantly/restaurantly/assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="" />
+                    <div class="member-info">
+                        <div class="member-info-content">
+                            <h4>Walter White</h4>
+                            <span>Master Chef</span>
+                        </div>
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="member" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="~/restaurantly/restaurantly/assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="" />
+                    <div class="member-info">
+                        <div class="member-info-content">
+                            <h4>Sarah Jhonson</h4>
+                            <span>Patissier</span>
+                        </div>
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="member" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="~/restaurantly/restaurantly/assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="" />
+                    <div class="member-info">
+                        <div class="member-info-content">
+                            <h4>William Anderson</h4>
+                            <span>Cook</span>
+                        </div>
+                        <div class="social">
+                            <a href=""><i class="bi bi-twitter"></i></a>
+                            <a href=""><i class="bi bi-facebook"></i></a>
+                            <a href=""><i class="bi bi-instagram"></i></a>
+                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End Chefs Section -->
+
+
+
+
 <div class="container p-3">
     <div class="row pt-4 mt-5 ">
         <div class="col-6 offset-3">
             <h2 class="text-dark  btn-block text-center py-2" style="margin-top: 150px;">List Of Chefs And The Food They Have</h2>
-            <span class="bg-dark text-white font-weight-bold">@ViewBag.Messag</span>
+            <span class="bg-dark text-white font-weight-bold">@*@ViewBag.Messag*@</span>
         </div>
 
     </div>
@@ -19,6 +91,8 @@
                 <tr>
                     <th class="text-center px-5">Name Of Chefs</th>
                     <th class="text-center px-5">Type Of Food</th>
+                    <th class="text-center px-5">PhoneNumber</th>
+                    <th class="text-center px-5">State</th>
                     <th class="text-center">Amount</th>
                     <th class="text-center px-5"> Action </th>
                 </tr>
@@ -32,6 +106,8 @@
                  <tr>
                     <td width="10%" class="text-center">@obj.NameOfChefs</td>
                     <td width="10%" class="text-center">@obj.TypeOfFood</td>
+                    <td width="10%" class="text-center">@obj.PhoneNumber</td>
+                    <td width="5%" class="text-center">@obj.State.Name</td>
                     <td width="5%" class="text-center">@obj.Amount</td>
                     <td width="8%" class="text-center">
                         <div class="w-10 btn-group" role="group">
@@ -59,28 +135,8 @@
 
     <div class="col-6 text-center create offset-2 my-2">
 
-        <a asp-controller="Chefs" asp-action="Create" role="button" class=" btn-block  rounded-pill text-center offset-3 px-5 py-2">
-          Create
-        </a>
+        <a asp-controller="Chefs" asp-action="Create" role="button" class=" btn-block  rounded-pill text-center offset-3 px-5 py-2"><i class="bi bi-person-plus-fill"></i> Create Chefs Foods </a>
 
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

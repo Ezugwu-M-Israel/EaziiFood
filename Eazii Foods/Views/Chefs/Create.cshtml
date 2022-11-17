@@ -4,7 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
+
 <form asp-controller="Chefs" asp-action="Create" method="post" enctype="multipart/form-data">
+
     <!--  Chefs Only  -->
 
     <div class="form-bg">
@@ -17,20 +19,26 @@
 
                     <div class="form-group">
 
-                        <input type="tel" class="form-control" name="NameOfChefs" value="" placeholder="NameOfChefs">
-
+                            <select asp-items="@(new SelectList(@ViewBag.Users,"Id", "FirstName"))" class="form-control" asp-for="UserId" required type="text">select User</select>
                     </div>
                     <div class="form-group help">
 
-                        <input id="TypeOfFood" type="text" class="form-control" name="TypeOfFood" required value="" placeholder="TypeOfFood">
+                        <input id="TypeOfFood" type="text" class="form-control"  asp-for="TypeOfFood" required value="" placeholder="TypeOfFood">
                     </div>
                     <div class="form-group help">
+                            <input id="Phone" type="text" class="form-control" asp-for="PhoneNumber" required value="" placeholder="+234-0916-7528-167">
+                    </div>
+                    <div class="form-group help">
+                            <select asp-items="@(new SelectList(@ViewBag.State,"Id", "Name"))" class="form-control" asp-for="StateId" required type="text">select state</select>
+                        </div>
+                    <div class="form-group help">
 
-                        <input asp-for="Amount" type="text" class="form-control" name="Amount" required value="" placeholder="Amount">
+                        <input id="Amount" type="text" class="form-control" asp-for="Amount" required value="" placeholder="Amount">
                     </div>
 
                     <div class="form-group help">
-                            <input type="file" asp-for="FoodImageUrl" class="form-control" required>
+                        
+                            <input class="form-control" type="file" id="image" asp-for="FoodImageUrl" required value="" />
                     </div>
 
                      <div class="form-group">
@@ -38,7 +46,7 @@
                         <div class="form-group row create">
                             <div class="col-8 offset-4 row">
                                 <div class="col">
-                                    <input type="submit" class="btn-block rounded-pill" value="Update" />
+                                    <input asp-action="Create" type="submit" class="btn-block rounded-pill" value="Update" />
                                 </div>
                                 <div class="col">
                                     <a asp-action="Index" role="button" class=" btn-block  rounded-pill text-center offset-3 px-5 py-2">

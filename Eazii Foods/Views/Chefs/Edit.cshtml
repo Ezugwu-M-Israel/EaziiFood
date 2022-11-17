@@ -27,13 +27,20 @@
 
                         <div class="form-group">
 
-                            <input  type="text" class="form-control" asp-for="NameOfChefs" value="@Model.NameOfChefs" placeholder="Name Of Chefs">
+                            @*<input type="text" class="form-control" required asp-for="NameOfChefs" value="@Model.NameOfChefs" placeholder="Name Of Chefs">*@
+                            <select asp-items="@(new SelectList(@ViewBag.Users,"Id", "FirstName"))" class="form-control" asp-for="UserId" required type="text">select User</select>
 
                         </div>
 
                         <div class="form-group help">
 
                             <input type="text" class="form-control" asp-for="TypeOfFood" required value="@Model.TypeOfFood" placeholder="Type Of Food">
+                        </div>
+                        <div class="form-group help">
+                            <input id="Phone" type="tel" class="form-control" asp-for="PhoneNumber" required value="@Model.PhoneNumber" placeholder="+234-0916-7528-167">
+                        </div>
+                        <div class="form-group help">
+                            <select asp-items="@(new SelectList(@ViewBag.State,"Id", "Name"))" class="form-control" asp-for="StateId" required type="text">select state</select>
                         </div>
 
                         <div class="form-group help">

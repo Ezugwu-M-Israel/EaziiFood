@@ -56,11 +56,10 @@ namespace Eazii_Foods.Controllers
                     StateId = placeOrder.StateId,
                     FoodId = placeOrder.FoodId,
 
-
                 };
                 _context.PlaceOrders.Add(newOredr);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View();  
         }

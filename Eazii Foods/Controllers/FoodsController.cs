@@ -29,6 +29,8 @@ namespace Eazii_Foods.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var user = _userManager.FindByEmailAsync(User.Identity.Name).Result;
+            var roleCheck = _userManager.GetRolesAsync(user).Result;
             var allfoods = _userHelper.GetLisstOfFood();
             if (allfoods != null && allfoods.Count > 0)
             {
@@ -36,7 +38,6 @@ namespace Eazii_Foods.Controllers
             }
             return View(allfoods);
         }
-
 
         [HttpGet]
         public IActionResult GetFood()
@@ -48,8 +49,7 @@ namespace Eazii_Foods.Controllers
             }
             return View(foods);
         }
-
-        
+     
         [HttpPost]
         public JsonResult AddFood(string foodDetails, string base64)
         {
@@ -69,7 +69,6 @@ namespace Eazii_Foods.Controllers
             return Json(new { isError = true, msg = "Error ocurred" });
         }
 
-
         [HttpPost]
         public JsonResult EditFood(FoodViewModel foodViewModel)
         {
@@ -85,9 +84,8 @@ namespace Eazii_Foods.Controllers
             return Json(new { isError = true, msg = "Error occured" });
         }    
       
-
         [HttpPost]
-        public JsonResult DeleteFood(int? id)
+        public JsonResult DeleteFood(int id)
         {
             if (id != 0)
             {

@@ -7,8 +7,6 @@ namespace Eazii_Foods.Models
 {
     public class ApplicationUser: IdentityUser
     {
-
-
         public string? FirstName { get; set; }
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
@@ -23,6 +21,6 @@ namespace Eazii_Foods.Models
         public int? StateId { get; set; }
         [Display(Name = "state")]
         [ForeignKey("StateId")]
-        public string? State { get; set; }
+        public State State { get; set; }
     }
 }

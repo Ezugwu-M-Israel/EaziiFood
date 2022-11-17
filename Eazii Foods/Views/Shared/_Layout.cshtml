@@ -78,11 +78,19 @@
                 timer: 30000,
                 overlay: "background - color: rgba(43, 165, 137, 0.45)",
             }).then(function () {
-
                 location.href = url;
             })
         }
     </script>
+
+    <script type="text/javascript">
+        function fun() {
+
+            alert("You Have Successfully Place an Order");
+        }
+    </script>
+
+  
 
     <!-- Vendor CSS Files -->
     <link href="~/restaurantly/restaurantly/assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
@@ -90,11 +98,12 @@
     <link href="~/restaurantly/restaurantly/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/restaurantly/restaurantly/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <link href="~/restaurantly/restaurantly/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/restaurantly/restaurantly/assets/css/style.css" rel="stylesheet" />
     <link href="~/restaurantly/restaurantly/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
     <link href="~/restaurantly/restaurantly/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
     <!-- Template Main CSS File -->
-    <link href="~/restaurantly/restaurantly/assets/css/style.css" rel="stylesheet" />
 
 
 </head>
@@ -137,9 +146,10 @@
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Menu</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Specials</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Events</a></li>
-                    <li><a class="nav-link scrollto" asp-controller="Chefs" asp-action="Index"> Chefs </a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Gallery</a></li>
                     @if(User.Identity.IsAuthenticated){
+                        <li><a class="nav-link scrollto" asp-controller="Admin" asp-action="AvailableChefs">AvailableChefs</a></li>
+                        <li><a class="nav-link scrollto" asp-controller="Chefs" asp-action="Index"> Chefs </a></li>
                         <li><a class="nav-link scrollto" asp-action="LogOut" asp-controller="Account" method="post">Logout</a> </li>
                     }else{
                         <li><a class="nav-link scrollto" asp-controller="Account" asp-action="Register">Register</a></li>
@@ -153,8 +163,7 @@
 
         </div>
     </header><!-- End Header -->
-
-
+    
 
     <div class="container-fluid">
         <main role="main" class="pb-3">

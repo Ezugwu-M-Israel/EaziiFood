@@ -22,11 +22,11 @@ namespace Eazii_Foods.ViewModel
         public int? FoodId { get; set; }
         [Display(Name = "Food")]
         [ForeignKey("FoodId")]
-        public virtual Food? Food { get; set; }
+        public virtual Food Food { get; set; }
 
         public int? StateId { get; set; }
         [Display(Name = "state")]
         [ForeignKey("StateId")]
-        public virtual State? State { get; set; }
+        public virtual State State { get; set; }
     }
 }

@@ -18,5 +18,6 @@ namespace Eazii_Foods.Database
         public DbSet<PlaceOrder> PlaceOrders { get; set; }
         public DbSet<Food> Food { get; set; }
         public DbSet<Chefs> Chefs { get; set; }
+        public DbSet<Admin> Admin { get; set; }
     }
 }

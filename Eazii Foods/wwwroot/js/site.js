@@ -31,7 +31,7 @@ function addFood() {
                     success: function (result) {
                         debugger;
                         if (!result.isError) {
-                            var url = '/Order/PlaceOrdere'
+                            var url = '/Foods/Index'
                             successAlertWithRedirect(result.msg, url)
                         }
                         else {
@@ -51,4 +51,9 @@ function addFood() {
         }
     }
 }
+
+
+
+
+
 

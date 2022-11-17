@@ -84,11 +84,6 @@
         }
     </script>
 
-      <script type = "text/javascript">
-            function fun() {
-             alert("You Have Successfully Place an Order"); 
-            }
-      </script>
 
   
 
@@ -134,19 +129,21 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
             <h1 class="logo me-auto me-lg-0"><a href="index.html">Restaurant</a></h1>
-
+                   <!-- Uncomment below if you prefer to use an image logo -->
+                <!--- <a href="index.html" class="logo me-auto me-lg-0">
+                  <img src="~/restaurantly/restaurantly/assets/img/logo.png" alt="" class="img-fluid">
+                </a> --->
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    
+                    <li><a class="nav-link scrollto active" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">About</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Menu</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Specials</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Events</a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Gallery</a></li>
-                    @if (User.Identity.IsAuthenticated){
-                        <li><a class="nav-link scrollto" asp-controller="Admin" asp-action="AvailableChefs">AvailableChefs</a></li>
-                        <li><a class="nav-link scrollto" asp-controller="Chefs" asp-action="Index"> Chefs </a></li>
-                        <li><a class="nav-link scrollto" asp-action="LogOut" asp-controller="Account" method="post">LogOut</a> </li>
+                    @if(User.Identity.IsAuthenticated){
+                        <li><a class="nav-link scrollto" asp-action="LogOut" asp-controller="Account" method="post">Logout</a> </li>
                     }else{
                         <li><a class="nav-link scrollto" asp-controller="Account" asp-action="Register">Register</a></li>
                         <li><a class="nav-link scrollto" asp-controller="Account" asp-action="Login">Login</a></li>
@@ -154,8 +151,8 @@
                     <li><a classs="nav-link scrollto" asp-controller="Foods" asp-action="Index"><span>FOODS</span></a></li>
                     <li><a class="nav-link scrollto" asp-controller="Home" asp-action="Index">Contact</a></li>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
+            <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Place Order</a>
 
         </div>
     </header><!-- End Header -->
@@ -249,7 +246,6 @@
     <script src="~/restaurantly/restaurantly/assets/vendor/php-email-form/validate.js"></script>
     <script src="~/restaurantly/restaurantly/assets/js/main.js"></script>
 
-
     <!-- Template Main JS File -->
     <script src="~/js/jquery-3.5.1.min.js"></script>
     <script src="~/js/sweetalert.min.js"></script>
@@ -265,4 +261,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-

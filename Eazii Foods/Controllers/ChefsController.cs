@@ -32,24 +32,39 @@ namespace Eazii_Foods.Controllers
             {
                 return View(objList);
             }
-           
+
             return View(objList);
         }
+
         //GET -- CREATE
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
+            ViewBag.Layout = _userHelper.GetRoleLayout(User.Identity.Name);
+            //var showAllChefs = _userHelper.ListOfChefs();
+            //if (showAllChefs.Count() > 0)
+            //{
+            //    return View(showAllChefs);
+            //}
             return View();
+            
         }
 
         //POST-- CREATE
         [HttpPost]
         public IActionResult Create(ChefsViewModel obj)
         {
-            if (ModelState.IsValid)
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
+
+            if (!ModelState.IsValid)
             {
 
-                if (obj.NameOfChefs == null)
+                if (obj.UserId == null)
                 {
                     TempData["error"] = "Please Enter Your NameOfChefs";
                     return View(obj);
@@ -61,6 +76,18 @@ namespace Eazii_Foods.Controllers
                     return View(obj);
 
                 }
+                if (obj.StateId == null)
+                {
+                    TempData["error"] = "Please Enter Your State";
+                    return View(obj);
+
+                }
+                if (obj.PhoneNumber == null)
+                {
+                    TempData["error"] = "Please Enter Your PhoneNumber";
+                    return View(obj);
+
+                }
                 if (obj.Amount == null)
                 {
                     TempData["error"] = "Please Enter Your Amount";
@@ -69,19 +96,19 @@ namespace Eazii_Foods.Controllers
                 }
                 if (obj.FoodImageUrl == null)
                 {
-                    TempData["error"] = "Please Enter Your Inage";
+                    TempData["error"] = "Please Enter Your Image";
                     return View(obj);
 
                 }
-                var myFood = _userHelper.FoodCreate(obj);
-                if(myFood != null)
+                var newFood = _userHelper.FoodCreate(obj);
+                if(newFood != null)
                 {
-                    if (myFood.Contains("Successfully"))
+                    if (newFood.Contains("Successfully"))
                     {
                         TempData["success"] = "Created Successfully";
                         return RedirectToAction("Index");
                     }
-                    if (myFood.Contains("Fail"))
+                    if (newFood.Contains("Fail"))
                     {
                         TempData["error"] = "Unable to Create food";
                         return View(obj);
@@ -93,8 +120,11 @@ namespace Eazii_Foods.Controllers
 
         //GET -- EDIT
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
             if (id==null || id == 0)
             {
                 return NotFound();
@@ -113,9 +143,11 @@ namespace Eazii_Foods.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Chefs obj)
         {
-            if (ModelState.IsValid)
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
+            if (!ModelState.IsValid)
             {
-
                 _context.Chefs.Update(obj);
                 _context.SaveChanges();
          
@@ -126,8 +158,11 @@ namespace Eazii_Foods.Controllers
         }
 
         //GET -- DETELE
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -144,8 +179,11 @@ namespace Eazii_Foods.Controllers
         //POST-- DETELE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
+        public IActionResult DeletePost(int id)
         {
+            ViewBag.State = _userHelper.GetState().Result;
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook" && f.Active).ToList();
+            ViewBag.Users = chefs;
             var obj = _context.Chefs.Find(id);
             if (obj == null)
             {
@@ -153,7 +191,7 @@ namespace Eazii_Foods.Controllers
             }
             _context.Chefs.Remove(obj);
             _context.SaveChanges();
-            ViewBag.Message = "One row deleted successfully";
+            ViewBag.Message = "One row Deleted successfully";
             return RedirectToAction("Index");
         }
 

@@ -1,6 +1,7 @@
 ﻿@model Eazii_Foods.ViewModel.PlaceOrderViewModel
+
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index"; 
 }
 
 
@@ -9,7 +10,7 @@
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-8">
-          <h1>Welcome to <span>Restaurantly</span></h1>
+          <h1>Welcome to <span>Restaurant</span></h1>
           <h2>Delivering great food for more than 18 years!</h2>
 
           <div class="btns">
@@ -420,7 +421,7 @@
 
     <!-- ======= Place Order Section ======= -->
 
-    <section id="book-a-table" class="book-a-table">
+@*    <section id="book-a-table" class="book-a-table">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
@@ -446,9 +447,9 @@
                         <input type="date" asp-for="OrderDate" class="form-control" id="date" placeholder="Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                         <div class="validate"></div>
                     </div>
+
                     <div class="col-lg-4 col-md-6 form-group mt-3">
                         <input type="tel" asp-for="Food" class="form-control" id="Food" placeholder="Your Food" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-@*                        <input type="text" asp-for="Food" class="form-control" id="FoodId" placeholder="Food" data-rule="minlen:4" data-msg="Please enter at least 4 chars">*@   
                               <div class="validate"></div>
                     </div>
                     <div class="col-lg-4 col-md-6 form-group mt-3">
@@ -465,11 +466,11 @@
                     <div class="error-message"></div>
                     <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Place Order</button></div>
+                <div class="text-center"><button type="submit" asp-controller="Home" asp-action="Index">Place Order</button></div>
             </form>
 
         </div>
-    </section>
+    </section>*@
     <!-- End Place Order Section -->
 
 
@@ -645,7 +646,7 @@
 
       </div>
     </section><!-- End Gallery Section -->
-
+@*
     <!-- ======= Chefs Section ======= -->
     <section id="chefs" class="chefs">
       <div class="container" data-aos="fade-up">
@@ -712,7 +713,7 @@
               </div>
             </div>
       </div>
-    </section><!-- End Chefs Section -->
+    </section><!-- End Chefs Section -->*@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">

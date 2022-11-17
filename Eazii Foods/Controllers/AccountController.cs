@@ -23,6 +23,7 @@ namespace Eazii_Foods.Controllers
             _signInManager = signInManager;
             _userHelper = userHelper;
         }
+
         //GET -- REGISTER
         [HttpGet]
         public IActionResult Register()
@@ -30,12 +31,13 @@ namespace Eazii_Foods.Controllers
             ViewBag.State = _userHelper.GetState().Result;
             return View();
         }
+
         //POST-- REGISTER
         [HttpPost]
         public IActionResult  Register(ApplicationUserViewModel applicationUserViewModel)
         {
             ViewBag.State = _userHelper.GetState().Result;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 if (applicationUserViewModel.FirstName == null)
                 {
@@ -120,17 +122,20 @@ namespace Eazii_Foods.Controllers
 
             return View();
         }
+
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         //GET -- LOGIN
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
         //POST-- LOGIN
         [HttpPost]
         public IActionResult Login(LoginViewModel obj)
@@ -147,21 +152,15 @@ namespace Eazii_Foods.Controllers
                     TempData["error"] = "Please put password";
                     return View(obj);
                 }
-
                 var existing = _userManager.Users.Where(u => u.UserName == obj.UserName).FirstOrDefault();
-
-                
                 if (existing != null)
-
                 {
                     var PasswordSigin = _signInManager.PasswordSignInAsync(obj.UserName, obj.Password, true, false).Result;
                     if (PasswordSigin.Succeeded)
-                    {
-                       
+                    {                      
                         var use3er = User.Identity.IsAuthenticated;
                             TempData["success"] = "Successfully!";
-                            return RedirectToAction("Index", "Home");
-                        
+                            return RedirectToAction("Index", "Home");                      
                     }
                 }
                 else
@@ -172,6 +171,48 @@ namespace Eazii_Foods.Controllers
             }
             TempData["error"] = "Login was Failed!";
             return View(obj);
+        }
+
+        [HttpGet]
+        public IActionResult CreateAdmin()
+        {
+            ViewBag.State = _userHelper.GetState().Result;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAdmin(ApplicationUserViewModel model)
+        {
+           
+            try
+            {
+                ViewBag.State = _userHelper.GetState().Result;
+                if (model != null)
+                {
+                    var existEmail = await _userHelper.FindByUserEmailAsync(model.Email);
+                    if (existEmail != null)
+                    {
+                        return View(existEmail);
+                    }
+                    var username = await _userHelper.FindByUserNameAsync(model.Email);
+                    if (username != null)
+                    {
+                        return View(username);
+                    }
+                    var createAdmin = await _userHelper.CreateAdminAsync(model);
+                    if (createAdmin != null)
+                    {
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                return null;
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
     }

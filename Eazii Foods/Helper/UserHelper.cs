@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NuGet.Packaging;
 using System.Numerics;
 
 namespace Eazii_Foods.Helper
@@ -30,32 +31,34 @@ namespace Eazii_Foods.Helper
         {
             return await _userManager.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
         }
+        public async Task<ApplicationUser> FindByUserEmailAsync(string username)
+        {
+            return await _userManager.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
+        }
 
-        public ApplicationUser FindByUsername(string? username)
+        public ApplicationUser FindByUsername(string username)
         {
             return _userManager.Users.Where(x => x.UserName == username).FirstOrDefault();
         }
 
 
-        public string GetUserById(string? username)
+        public string GetUserById(string username)
         {
-            return _userManager.Users.Where(x => x.UserName == username).FirstOrDefaultAsync().Result.Id?.ToString();
+            return _userManager.Users.Where(x => x.UserName == username).FirstOrDefaultAsync().Result.Id.ToString();
         }
 
-        public async Task<ApplicationUser> FindUserByEmail(string? email)
+        public async Task<ApplicationUser> FindUserByEmail(string email)
         {
             return await _userManager.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
         }
-        public async Task<ApplicationUser> FindUserByIdAsync(string? id)
+        public async Task<ApplicationUser> FindUserByIdAsync(string id)
         {
             return await _userManager.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
-        public ApplicationUser FindByEmail(string? email)
+        public ApplicationUser FindByEmail(string email)
         {
             return _userManager.Users.Where(x => x.Email == email).FirstOrDefault();
         }
-
-        
         public async Task<ApplicationUser> ChefsRegistertion(ApplicationUserViewModel applicationUserViewModel)
         {
             if (applicationUserViewModel != null)
@@ -77,18 +80,23 @@ namespace Eazii_Foods.Helper
                     newAppUser.Active = true;
 
                 }
+
                 var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
                 if (result.Succeeded)
                 {
-                    return newAppUser;
 
+                    var role = await _userManager.AddToRoleAsync(newAppUser, "User");
+                    if (role != null)
+                    {
+                        return newAppUser;
+                    }
                 }         
             }
             return null;
         }        
          
         public async Task<List<State>> GetState()
-       {
+        {
             var states = new List<State>();
             var common = new State() 
             {
@@ -175,7 +183,7 @@ namespace Eazii_Foods.Helper
             return "Food failed To Update";
         }
 
-        public string DeleteFood(int? id)
+        public string DeleteFood(int id)
         {
             if (id != 0)
             {
@@ -195,18 +203,21 @@ namespace Eazii_Foods.Helper
         public List<ChefsViewModel> ListOfChefs()
         {
             var listOfChefs = new List<ChefsViewModel>();
-            var chef = _context.Chefs.Where(x => x.Id != 0).ToList();
-            if (chef.Count > 0)
+            var chef = _context.Chefs.Where(x => x.Id != 0).Include(st => st.State).Include(a => a.User).ToList();
+            if (chef != null && chef.Count() > 0)
             {
                 foreach (var chefs in chef)
                 {
                     var chefsViewModel = new ChefsViewModel()
                     {
-                        NameOfChefs = chefs.NameOfChefs,
+
+                        NameOfChefs = chefs?.User?.FirstName,
                         Id = chefs.Id,
                         TypeOfFood = chefs.TypeOfFood,
                         Image = chefs.Image,
                         Amount = chefs.Amount,
+                        State = chefs.State,    
+                        PhoneNumber = chefs.PhoneNumber,
                     };
                     listOfChefs.Add(chefsViewModel);
                 }
@@ -217,6 +228,7 @@ namespace Eazii_Foods.Helper
 
         public string FoodCreate(ChefsViewModel foods)
         {
+            var chef = _context.Chefs.Where(x => x.Id != 0).Include(st => st.State).Include(a => a.User).ToList();
             string foodPixFilePath = string.Empty;
 
             if (foods.FoodImageUrl != null)
@@ -228,7 +240,9 @@ namespace Eazii_Foods.Helper
                 TypeOfFood = foods.TypeOfFood,
                 Amount = foods.Amount,
                 Image = foodPixFilePath,
-                NameOfChefs = foods.NameOfChefs,
+                NameOfChefs = foods?.User?.FirstName,
+                PhoneNumber = foods.PhoneNumber,
+                StateId = foods.StateId,    
             };
 
             if (newFood != null)
@@ -266,5 +280,132 @@ namespace Eazii_Foods.Helper
             return generatedPictureFilePath;
         }
 
+        public string GetRoleLayout(string username)
+        {
+            if (username == null)
+            {
+                return null;
+            }
+            var newAppUser = _userManager.Users.Where(u => u.UserName == username).FirstOrDefault();
+            var Admin = _userManager.IsInRoleAsync(newAppUser, "Admin").Result;
+            if (Admin)
+            {
+                return "~/Views/Shared/_AdminLayout .cshtml";
+            }
+            else if (!Admin)
+            {
+                var chefs = _userManager.IsInRoleAsync(newAppUser, "Chefs").Result;
+                if (chefs)
+                {
+                    return "~/Views/Shared/_ChefsLayout.cshtml";
+                }
+                else
+                {
+                    var user = _userManager.IsInRoleAsync(newAppUser, "User").Result;
+                    return "~/Views/Shared/_UsersLayout.cshtml";
+                }
+            }
+            return null;
+        }
+        public async Task<bool> CheckIfUserIsAdmin(string username)
+        {
+            try
+            {
+                if (username == null)
+                {
+                    return false;
+                }
+                var currentUser = FindByUserNameAsync(username);
+                var userDetails = await _userManager.Users.Where(s => s.UserName == currentUser.Result.UserName).FirstOrDefaultAsync();
+                if (userDetails != null)
+                {
+                    var goAdmin = await _userManager.IsInRoleAsync(userDetails, "Admin");
+                    if (goAdmin)
+                    {
+                        return goAdmin;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        public async Task<ApplicationUser> CreateAdminAsync(ApplicationUserViewModel model)
+        {
+            try
+            {
+                if (model != null)
+                {
+                    var addAdmin = new ApplicationUser
+                    {
+                        FirstName = model.FirstName,
+                        MiddleName = model.MiddleName,
+                        LastName = model.MiddleName,
+                        Email = model.Email,
+                        Address = model.Address,
+                        Gender = model.Gender,
+                        PhoneNumber = model.PhoneNumber,
+                        DateOfBirth = model.DateOfBirth,
+                        State = model.State,
+                        Branchoffice = model.Branchoffice,
+                        DateRegistered = DateTime.Now,
+                        UserName = model.Email,
+                        Department = model.Department,
+                        Active = true,
+                    };
+                    var result = await _userManager.CreateAsync(addAdmin, model.Password);
+                    if (result.Succeeded)
+                    {
+                      var role = await  _userManager.AddToRoleAsync(addAdmin, "Admin");
+                        return addAdmin;
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ChefsViewModel GetAllChefs()
+        {
+            var gg = new ChefsViewModel();
+            gg.ActiveChefs = new List<Chefs>();
+            gg.NonActiveChefs = new List<Chefs>();
+            var chefs = _userManager.Users.Where(f => f.Department.ToLower() == "Cook").ToList();
+            if (chefs != null && chefs.Count() > 0)
+            {
+                foreach (var chef in chefs)
+                {
+                  var foods =   _context.Chefs.Where(c => c.UserId == chef.Id).Include(st => st.State).Include(a => a.User).ToList();
+                    if (foods.Count > 0)
+                    {
+                        if (chef.Active)
+                        {
+                            
+                            gg.ActiveChefs.AddRange(foods);
+                        }
+                        else
+                        {
+                           
+                            gg.NonActiveChefs.AddRange(foods);
+
+                        }
+
+                    }
+                }
+            }
+            return gg;
+
+        }
     }
 }

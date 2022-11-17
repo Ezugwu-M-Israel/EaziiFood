@@ -1,0 +1,102 @@
+﻿@model Eazii_Foods.ViewModel.ChefsViewModel
+
+@{
+    ViewData["Title"] = "AvailableChefs";
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container p-3">
+    
+    <div class="row pt-4 mt-5 ">
+        <div class="col-6 offset-3">
+            <h2 class="text-dark  btn-block text-center py-2" style="margin-top: 150px;">List Of Chef That are Available For That They</h2>
+            <span class="bg-dark text-white font-weight-bold">@*@ViewBag.Messag*@</span>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+  @if (Model.ActiveChefs.Count() > 0 || Model.NonActiveChefs.Count() > 0)
+  {
+     <table class="table table-hover" style="width:100%">
+
+        <thead class="btn-block">
+
+            <tr>
+
+                <th class="text-center px-5">Name Of Chefs</th>
+                <th class="text-center px-5">Type Of Food</th>
+                <th class="text-center px-5">State</th>
+                <th class="text-center px-5">PhoneNumber</th>
+                <th class="text-center">Amount</th>
+                <th class="text-center px-5">Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody class="text-white">
+            @if (Model.ActiveChefs.Count() > 0)
+            {
+                @foreach (var obj in Model.ActiveChefs)
+                {
+
+                    <tr>
+                        <td width="10%" class="text-center">@obj.User.FirstName</td>
+                        <td width="10%" class="text-center">@obj.TypeOfFood</td>
+                        <td width="10%" class="text-center">@obj.PhoneNumber</td>
+                        <td width="5%" class="text-center">@obj.State.Name</td>
+                        <td width="5%" class="text-center">@obj.Amount</td>
+                        <td width="8%" class="text-center">
+                                <div class="container">
+                                    <input type="checkbox" class="toggle" id="rounded">
+                                    <label for="rounded" data-checked="checked" class="rounded" data-unchecked="unchecked"></label>
+                                </div>
+@*                                <div class="containers">
+                                    <input type="checkbox" class="toggle" id="rounded">
+                                    <label for="rounded" data-checked="checked" class="rounded" data-unchecked="unchecked"></label>
+                                </div>*@
+                        </td>
+
+                    </tr>
+                }
+
+            }
+
+            @if (Model.NonActiveChefs.Count() > 0)
+            {
+                @foreach (var obj in Model.NonActiveChefs)
+                {
+
+                    <tr>
+                        <td width="10%" class="text-center">@obj.User.FirstName</td>
+                        <td width="10%" class="text-center">@obj.TypeOfFood</td>
+                        <td width="10%" class="text-center">@obj.PhoneNumber</td>
+                        <td width="5%" class="text-center">@obj.State.Name</td>
+                        <td width="5%" class="text-center">@obj.Amount</td>
+                        <td width="8%" class="text-center bodys">
+
+                                <div class="containers">
+                                    <input type="checkbox" class="toggle" id="default">
+                                    <label for="default" data-checked="checked" data-unchecked="unchecked"></label>
+                                </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+            }
+
+                    
+
+        </tbody>
+
+     </table>
+  }
+</div>
+
+
+
+

@@ -9,6 +9,6 @@ namespace Eazii_Foods.Models
         public int? CountryId { get; set; }
         [Display(Name = "Country")]
         [ForeignKey("CountryId")]
-        public virtual Country? Country { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

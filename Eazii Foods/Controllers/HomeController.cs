@@ -21,10 +21,10 @@ namespace Eazii_Foods.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.State = _userHelper.GetState().Result;
+           //ViewBag.State = _userHelper.GetState().Result;
             return View();
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
